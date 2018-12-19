@@ -45,7 +45,7 @@ public class ScrapeApplication {
 			PDDocument document = PDDocument.load(file);
 			PDFTextStripper pdfStripper = new PDFTextStripper();
 			int pageNumber = 1;
-			pageNumber =  getPhrasePageNumber("Portfolio Overview",document);
+			pageNumber =  getPhrasePageNumber("Activity Summary",document);
 			Rectangle rect = new Rectangle (0f,0f,1000f,1000f); 		// Cover the whole page
 //			Rectangle rect = new Rectangle( 424.193f,54.315f,585.99f,274.635f);// PortFolio Overview
 //			Rectangle rect = new Rectangle(230,50,260,60);			//Acitivity Summary
@@ -100,7 +100,7 @@ public class ScrapeApplication {
 			}
 			Word sampleWord = new Word();
 			for(Word wordRead:wordList) {
-			if(wordRead.content.equals("Portfolio")) {
+			if(wordRead.content.equals("Activity")) {
 				sampleWord = wordRead;
 			}}
 			Ruling nearestRuling = getNearestRuling(page,sampleWord);
@@ -113,7 +113,7 @@ public class ScrapeApplication {
 //			for(Ruling ruling :allRuling) {
 //				if(ruling.horizontal())
 //				System.out.println(""+ruling);}
-			System.out.println("NEAREST RULING TO :\""+sampleWord.content+"\" is :"+nearestRuling);
+			System.out.println("NEAREST RULING TO :\""+sampleWord+"\" is :"+nearestRuling);
 			System.out.println("********");
 			System.out.println("RULING WIDTH :"+nearestRuling.length());
 			double tableWidth = nearestRuling.length();
@@ -155,11 +155,7 @@ public class ScrapeApplication {
 //				System.out.print(wordRead.startLetter.getBottom()+"\t");
 				System.out.println(wordRead.content);
 //				System.out.println("\t"+wordRead.endLetter.getRight());
-			}
-			
-			
-			
-			
+			}		
 //			System.out.println(stream.toString());
 //			do {
 //				stream = 
@@ -177,7 +173,6 @@ public class ScrapeApplication {
 		
 		
 	}
-
 	static boolean getIsNewLine() {
 		return isNewLine;
 	}
@@ -200,7 +195,6 @@ public class ScrapeApplication {
 			isNewWord= true;}
 		return isNewWord;
 	}
-	
 	static int getPhrasePageNumber(String phrase,PDDocument document) {
 		int pageNumber=-1;
 		int totalPages = document.getNumberOfPages();
@@ -224,28 +218,48 @@ public class ScrapeApplication {
 		}
 		return pageNumber;
 	}
-	public static double distance(double x1, double x2,double y1, double y2) {
-        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-    }
+//	static double length() {
+//        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+//    }
+	static double shortest_distance(double x1, double y1, 
+			double a, double b, 
+			double c){ 
+		return Math.abs(((a * x1 + b * y1 + c)) /  
+				(Math.sqrt(a * a + b * b)));  
+		}	
 	public static Ruling getNearestRuling(Page page, Word word) {
 		
 		List<Ruling> allRuling = page.getRulings();
-		Ruling nearestRuling = allRuling.get(0);
+		Ruling nearestRuling=null;
+		for(Ruling ruling :allRuling) {
+			if(ruling.horizontal()) {
+				nearestRuling = ruling;
+				break;
+			}
+		}
 		double wordBaseY = word.startLetter.getBottom();
 		double wordBaseX = word.startLetter.getX();
-		double leastDistance = distance(wordBaseX, nearestRuling.getX1(),wordBaseY,nearestRuling.getY1());
+		double leastDistance = shortestDistanceFromPoints( nearestRuling.getX1(),nearestRuling.getY1(),nearestRuling.getX2(),nearestRuling.getY2(),wordBaseX,wordBaseY);
+		System.out.println("Starting Least Distance:"+ leastDistance+ "\tRuling:"+nearestRuling);
 		for(Ruling ruling :allRuling) 
 			{if(ruling.horizontal()) {
-				if(leastDistance>distance(wordBaseX, ruling.getX1(),wordBaseY,ruling.getY1())) {
+				System.out.println("Ruling "+ ruling);
+				if(leastDistance>shortestDistanceFromPoints( ruling.getX1(),ruling.getY1(),ruling.getX2(),ruling.getY2(),wordBaseX,wordBaseY)) {
 					nearestRuling = ruling;
-					leastDistance=distance(wordBaseX, ruling.getX1(),wordBaseY,ruling.getY1());
+					leastDistance=shortestDistanceFromPoints( ruling.getX1(),ruling.getY1(),ruling.getX2(),ruling.getY2(),wordBaseX,wordBaseY);
 				}
 			} 
 			}
 		System.out.println("Distance btw the Coords:"+ leastDistance);
 		return nearestRuling;
 	}
-	
-	
-
+	static double shortestDistanceFromPoints(double x1, double y1, double x2, double y2, double xP, double yP) 
+	{ 
+	    double a = 0;
+	    double b = 1; 
+	    double c =-b*(y1); 
+//	    System.out.println("a:"+a+"b:"+b+"c:"+c);
+//	    System.out.println("Ruling distances"+shortest_distance(xP,yP,a,b,c));
+	    return shortest_distance(xP,yP,a,b,c);
+	}
 }
