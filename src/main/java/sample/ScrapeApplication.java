@@ -1,30 +1,16 @@
 package sample;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.InputStream;
-import javax.imageio.ImageIO;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-
-import technology.tabula.ObjectExtractor;
 import technology.tabula.Page;
 import technology.tabula.Rectangle;
 import technology.tabula.Ruling;
-import technology.tabula.TextChunk;
 import technology.tabula.TextElement;
-import technology.tabula.detectors.NurminenDetectionAlgorithm;
 import sample.Word;
 public class ScrapeApplication {
 	static boolean isNewLine=false;
@@ -32,18 +18,18 @@ public class ScrapeApplication {
 	static List<Word> wordList = new ArrayList<Word>();
 	static List<Word> tableList = new ArrayList<Word>();
 	public static void main(String...strings) {
-		String newLine = new String("");
+//		String newLine = new String("");
 		String path = "src/main/java/sample/Legacy.pdf";
 		boolean newWord=true;
-		DocumentBuilder builder;
+//		DocumentBuilder builder;
 		File file = new File(path); 
 		StringBuilder str = new StringBuilder();
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();		
-		NurminenDetectionAlgorithm detectionAlgorithm = new NurminenDetectionAlgorithm();
+//		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();		
+//		NurminenDetectionAlgorithm detectionAlgorithm = new NurminenDetectionAlgorithm();
 		try {
 			
 			PDDocument document = PDDocument.load(file);
-			PDFTextStripper pdfStripper = new PDFTextStripper();
+//			PDFTextStripper pdfStripper = new PDFTextStripper();
 			int pageNumber = 1;
 			pageNumber =  getPhrasePageNumber("Activity Summary",document);
 			Rectangle rect = new Rectangle (0f,0f,1000f,1000f); 		// Cover the whole page
@@ -54,8 +40,8 @@ public class ScrapeApplication {
 			TextElement prevText = page.getArea(rect).getText().get(0);
 //			Rectangle boundRect = page.getArea(rect).getTextBounds();
 			List<Ruling> allRuling = page.getRulings();
-			List<TextChunk>textChunkList;
-			int i=0;
+//			List<TextChunk>textChunkList;
+//			int i=0;
 			TextElement startLetter=page.getArea(rect).getText().get(0);
 			TextElement endLetter;
 			for(TextElement text:page.getArea(rect).getText()) {
@@ -116,7 +102,7 @@ public class ScrapeApplication {
 			System.out.println("NEAREST RULING TO :\""+sampleWord+"\" is :"+nearestRuling);
 			System.out.println("********");
 			System.out.println("RULING WIDTH :"+nearestRuling.length());
-			double tableWidth = nearestRuling.length();
+//			double tableWidth = nearestRuling.length();
 			Rectangle tableRect = new Rectangle (sampleWord.startLetter.getTop(),(float)sampleWord.startLetter.getX(), (float)nearestRuling.length(),300f);
 			for(TextElement text:page.getArea(tableRect).getText()) {
 			
