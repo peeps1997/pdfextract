@@ -1,5 +1,7 @@
 package sample;
+
 import technology.tabula.TextElement;
+
 public class Word implements Cloneable{  
 	public Word(TextElement startLetter, TextElement endLetter, String content) {
 		this.startLetter = startLetter;

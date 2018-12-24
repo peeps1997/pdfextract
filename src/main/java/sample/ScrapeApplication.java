@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripper;
+
 import technology.tabula.Page;
 import technology.tabula.Rectangle;
 import technology.tabula.Ruling;
