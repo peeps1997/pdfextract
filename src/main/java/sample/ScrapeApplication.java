@@ -20,7 +20,7 @@ public class ScrapeApplication {
 	static List<Word> tableList = new ArrayList<Word>();
 	public static void main(String...strings) {
 //		String newLine = new String("");
-		String path = "src/main/java/sample/Legacy.pdf";
+		String path = "D:/tabula/New.pdf";
 		boolean newWord=true;
 //		DocumentBuilder builder;
 		File file = new File(path); 
@@ -88,7 +88,7 @@ public class ScrapeApplication {
 			Word sampleWord = new Word();
 			for(Word wordRead:wordList) {
 			if(wordRead.content.equals("Activity")) {
-				sampleWord = wordRead;
+				sampleWord = wordRead; 
 			}}
 			Ruling nearestRuling = getNearestRuling(page,sampleWord);
 			List<Ruling> verticalRuling = new ArrayList<Ruling>();
@@ -100,7 +100,7 @@ public class ScrapeApplication {
 //			for(Ruling ruling :allRuling) {
 //				if(ruling.horizontal())
 //				System.out.println(""+ruling);}
-			System.out.println("NEAREST RULING TO :\""+sampleWord+"\" is :"+nearestRuling);
+			System.out.println("NEAREST RULING TO :\""+sampleWord.toString()+"\" is :"+nearestRuling);
 			System.out.println("********");
 			System.out.println("RULING WIDTH :"+nearestRuling.length());
 //			double tableWidth = nearestRuling.length();
@@ -140,7 +140,7 @@ public class ScrapeApplication {
 //				System.out.print(wordRead.startLetter.getX()+"\t");
 //				System.out.print(wordRead.startLetter.getY()+"\t");
 //				System.out.print(wordRead.startLetter.getBottom()+"\t");
-				System.out.println(wordRead.content);
+//				System.out.println(wordRead.content);
 //				System.out.println("\t"+wordRead.endLetter.getRight());
 			}		
 //			System.out.println(stream.toString());
@@ -230,7 +230,7 @@ public class ScrapeApplication {
 		System.out.println("Starting Least Distance:"+ leastDistance+ "\tRuling:"+nearestRuling);
 		for(Ruling ruling :allRuling) 
 			{if(ruling.horizontal()) {
-				System.out.println("Ruling "+ ruling);
+//				System.out.println("Ruling "+ ruling);
 				if(leastDistance>shortestDistanceFromPoints( ruling.getX1(),ruling.getY1(),ruling.getX2(),ruling.getY2(),wordBaseX,wordBaseY)) {
 					nearestRuling = ruling;
 					leastDistance=shortestDistanceFromPoints( ruling.getX1(),ruling.getY1(),ruling.getX2(),ruling.getY2(),wordBaseX,wordBaseY);

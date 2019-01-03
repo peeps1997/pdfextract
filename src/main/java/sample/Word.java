@@ -2,7 +2,8 @@ package sample;
 
 import technology.tabula.TextElement;
 
-public class Word implements Cloneable{  
+public class Word{  
+	
 	public Word(TextElement startLetter, TextElement endLetter, String content) {
 		this.startLetter = startLetter;
 		this.endLetter = endLetter;
@@ -26,8 +27,8 @@ public class Word implements Cloneable{
 	public Word(StringBuilder word) {
 		this.content = new String(word);
 	}
-	public Object clone()throws CloneNotSupportedException{  
-		return super.clone();  
-		}  
+	@Override
+	public String toString() {
+		return this.content+ " Starts at : "+ startLetter.getX()+ ", and ends at :"+ (endLetter.getX()+endLetter.getWidth());}
 	
 }
