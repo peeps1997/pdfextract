@@ -29,6 +29,6 @@ public class Word{
 	}
 	@Override
 	public String toString() {
-		return this.content+ " Starts at : "+ startLetter.getX()+ ", and ends at :"+ (endLetter.getX()+endLetter.getWidth());}
+		return "\""+this.content+ "\" Starts at : "+ startLetter.getX()+ ", and ends at :"+ (endLetter.getX()+endLetter.getWidth());}
 	
 }

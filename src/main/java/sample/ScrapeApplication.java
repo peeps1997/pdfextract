@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripper;
-
 import technology.tabula.Page;
 import technology.tabula.Rectangle;
 import technology.tabula.Ruling;
@@ -28,7 +27,6 @@ public class ScrapeApplication {
 //		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();		
 //		NurminenDetectionAlgorithm detectionAlgorithm = new NurminenDetectionAlgorithm();
 		try {
-			
 			PDDocument document = PDDocument.load(file);
 //			PDFTextStripper pdfStripper = new PDFTextStripper();
 			int pageNumber = 1;
@@ -100,7 +98,7 @@ public class ScrapeApplication {
 //			for(Ruling ruling :allRuling) {
 //				if(ruling.horizontal())
 //				System.out.println(""+ruling);}
-			System.out.println("NEAREST RULING TO :\""+sampleWord.toString()+"\" is :"+nearestRuling);
+			System.out.println("NEAREST RULING TO :"+sampleWord.toString()+" is :"+nearestRuling);
 			System.out.println("********");
 			System.out.println("RULING WIDTH :"+nearestRuling.length());
 //			double tableWidth = nearestRuling.length();
